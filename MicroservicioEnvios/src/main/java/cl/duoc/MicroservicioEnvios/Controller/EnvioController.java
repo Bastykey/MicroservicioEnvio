@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -21,8 +20,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/envios")
-@Tag(name = "Envios", description = "Operaciones CRUD sobre el recurso Envio")
+@RequestMapping("/api/v1/envios")
 public class EnvioController {
 
     @Autowired
@@ -31,7 +29,7 @@ public class EnvioController {
     @Autowired
     private EnvioAssembler envioAssembler;
 
-    @Operation(summary = "Obtener todos los envíos")
+    @Operation(summary = "Todos los envíos")
     @GetMapping
     public CollectionModel<EntityModel<EnvioDTO>> obtenerTodos() {
         var envios = envioService.buscarTodos().stream()
@@ -45,7 +43,7 @@ public class EnvioController {
         @ApiResponse(responseCode = "200", description = "Envío encontrado",
             content = @Content(mediaType = "application/json",
                 schema = @Schema(implementation = EnvioDTO.class),
-                examples = @ExampleObject(value = "{\"codigoPedido\":\"PED123\",\"direccionDestino\":\"Av. Siempre Viva 742\",\"estado\":\"en tránsito\",\"fechaEnvio\":\"2025-06-29T14:00:00\"}"))),
+                examples = @ExampleObject(value = "{\"codigoPedido\":\"Pedido 1\",\"direccionDestino\":\"Av. Siempre Viva 123\",\"estado\":\"en tránsito\",\"fechaEnvio\":\"2025-06-29T14:00:00\"}"))),
         @ApiResponse(responseCode = "404", description = "Envío no encontrado")
     })
     @GetMapping("/codigo/{codigo}")
